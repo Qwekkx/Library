@@ -4,8 +4,7 @@ using namespace std;
 
 class Book
 {
-
-private:
+protected:
     long long ID;
     bool lended;
     string name;
@@ -17,6 +16,7 @@ private:
 
 public:
     friend class Administrator;
+    friend class BookWare;
     Book() : ID(0), lended(false), left(NULL), right(NULL) {}
     Book(string a, string b, string c, string d) : name(a), ISBN(b), author(c), type(d) {}
     ~Book() {}
@@ -25,9 +25,4 @@ public:
     string getISBN() const { return ISBN; }
     string getType() const { return type; }
     bool getLended() const { return lended; }
-    void setName(string a) { name = a; }
-    void setAuthor(string a) { author = a; }
-    void setISBN(string a) { ISBN = a; }
-    void settype(string a) { type = a; }
-    void setLended(bool b) { lended = b; }
 };
