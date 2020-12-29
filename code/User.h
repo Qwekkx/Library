@@ -11,6 +11,6 @@ protected:
     bool Admin;
 
 public:
-    User() : ID(0) {}
-    ~User() {}
+    User();
+    ~User();
 };
