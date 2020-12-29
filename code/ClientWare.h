@@ -1,7 +1,7 @@
 #include <string>
 #include "User.h"
 #include "Client.h"
-
+#pragma once
 class ClientWare
 {
 private:

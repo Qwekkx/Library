@@ -2,7 +2,7 @@
 #include "User.h"
 #include "Book.h"
 #include "Record.h"
-
+#pragma once
 struct Record;
 
 class Client
@@ -11,7 +11,7 @@ private:
     Record *record;
 
 public:
-    Client() : borrow_record(NULL) {}
+    Client() : record(NULL) {}
     ~Client();
     void recordUpdate(Record new_record);
 };
