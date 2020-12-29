@@ -2,6 +2,7 @@
 #include "User.h"
 #include "BookWare.h"
 #include "ClientWare.h"
+#include "Record.h"
 #include <string>
 #pragma once
 

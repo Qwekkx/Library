@@ -1,6 +1,7 @@
 #include <string>
 #include "User.h"
 #include "Book.h"
+#include "Record.h"
 
 struct Record;
 
@@ -12,13 +13,5 @@ private:
 public:
     Client() : borrow_record(NULL) {}
     ~Client();
-    recordUpdate();
-};
-
-struct Record
-{
-    string name;
-    string date;
-    Book book;
-    long long duration;
+    void recordUpdate(Record new_record);
 };

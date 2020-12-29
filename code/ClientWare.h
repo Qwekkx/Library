@@ -4,4 +4,13 @@
 
 class ClientWare
 {
+private:
+    Client *root;
+    long long capacity;
+
+public:
+    ClientWare() : root(NULL) {}
+    ~ClientWare();
+    void insert(Client new_client);
+    Client *search(string username);
 };
