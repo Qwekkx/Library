@@ -14,7 +14,6 @@ private:
 
 public:
     BookWare() : root(NULL), capacity(0) {}
-    ~BookWare();
     void insert(Book book);
     Book search(string accur);
     Book search(long long ID);

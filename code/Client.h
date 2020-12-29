@@ -5,7 +5,7 @@
 #pragma once
 struct Record;
 
-class Client
+class Client : public User
 {
 private:
     Record *record;

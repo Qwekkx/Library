@@ -4,13 +4,12 @@ using namespace std;
 
 class User
 {
-protected:
+public:
     long long ID;
     string user_name;
     string password;
-    bool Admin;
-
-public:
-    User();
-    ~User();
+    void setUserName(string str) { user_name = str; }
+    void setPassword(string str) { password = str; }
+    User() : {}
+    ~User() {}
 };

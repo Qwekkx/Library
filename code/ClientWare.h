@@ -9,8 +9,7 @@ private:
     long long capacity;
 
 public:
-    ClientWare() : root(NULL) {}
-    ~ClientWare();
+    ClientWare() : root(NULL), capacity(0) {}
     void insert(Client new_client);
     Client *search(string username);
 };
