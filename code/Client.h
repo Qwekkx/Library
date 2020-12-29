@@ -12,6 +12,6 @@ private:
 
 public:
     Client() : record(NULL) {}
-    ~Client();
+    ~Client() {}
     void recordUpdate(Record new_record);
 };

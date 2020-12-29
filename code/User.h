@@ -10,6 +10,6 @@ public:
     string password;
     void setUserName(string str) { user_name = str; }
     void setPassword(string str) { password = str; }
-    User() : {}
+    User() {}
     ~User() {}
 };
