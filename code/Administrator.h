@@ -3,6 +3,7 @@
 #include "Client.h"
 #include "ClientWare.h"
 #include <string>
+#include <iostream>
 #pragma once
 
 class Administrator : public User
@@ -15,10 +16,10 @@ public:
     Administrator() : User() { ID = 666666, user_name = "Admin", password = "yysyqs"; }
     ~Administrator() {}
     Administrator(string a, string b) : User() { user_name = a, password = b; }
-    void function();
+    void run();
 };
 
-void Administrator::function()
+void Administrator::run()
 {
     int func;
     cout << "Correct. \n";
@@ -48,6 +49,8 @@ OPERATION:
             break;
         case 3:
             break;
+        case 4:
+            break;
         case 5:
             goto OPERATION;
         default:
@@ -67,6 +70,12 @@ OPERATION:
         switch (func)
         {
         case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
             break;
         case 5:
             goto OPERATION;
