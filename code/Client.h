@@ -15,4 +15,5 @@ public:
     ~Client() {}
     void recordUpdate(Record new_record);
     void run() {}
+    void check_record(){};
 };

@@ -23,8 +23,10 @@ public:
     void chang_book_information();
     void add_new_book();
     void delete_book();
-    void initial() {}
     void search_book_information();
+    void initialization() {}
+    void save_data() {}
+    void borrow_book();
 };
 
 Library::Library() : admin(new Administrator),
@@ -163,7 +165,11 @@ OPERATION:
     switch (func)
     {
     case 1:
+        search_book_information();
     case 2:
+        borrow_book();
+    case 3:
+        client->check_record();
     case 4:
         client->set();
     default:
@@ -257,4 +263,20 @@ void Library::search_book_information()
     }
     cout << "DONE\n\n";
     system("pause");
+}
+
+void Library::borrow_book()
+{
+    cout << "Please input the book's name which you want to borrow.\n";
+    string str;
+    Book *borrowed = book_ware->search(str);
+    cout << "Please input the borrow date like '2020 12 31'\n";
+    string date;
+    cin.get();
+    getline(cin, date);
+    cout << "Please input the duration:\n";
+    long long duration;
+    cin >> duration;
+    Record new_record{str, date, borrowed, duration};
+    client->recordUpdate(new_record);
 }

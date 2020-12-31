@@ -2,6 +2,6 @@ struct Record
 {
     string name;
     string date;
-    Book book;
+    Book* book;
     long long duration;
 };
