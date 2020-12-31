@@ -4,7 +4,7 @@ using namespace std;
 
 class Book
 {
-protected:
+public:
     long long ID;
     bool lended;
     string name;
@@ -14,7 +14,6 @@ protected:
     Book *left;
     Book *right;
 
-public:
     Book() : ID(0), lended(false), left(NULL), right(NULL) {}
     Book(string a, string b, string c, string d) : name(a), ISBN(b), author(c), type(d) {}
 };

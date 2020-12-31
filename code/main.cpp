@@ -2,5 +2,6 @@
 int main()
 {
     Library library;
+    library.initial();
     library.run();
 }

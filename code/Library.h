@@ -14,12 +14,17 @@ private:
     BookWare *book_ware;
     Client *client;
     ClientWare *client_ware;
-    void userRun();
-    void adminRun();
 
 public:
     Library();
+    void userRun();
+    void adminRun();
     void run();
+    void chang_book_information();
+    void add_new_book();
+    void delete_book();
+    void initial() {}
+    void search_book_information();
 };
 
 Library::Library() : admin(new Administrator),
@@ -76,17 +81,20 @@ OPERATION:
              << "4 --> search book information\n"
              << "5 --> go back\n";
         cin >> func;
+        cout << endl;
         switch (func)
         {
         case 1:
             chang_book_information();
-            break;
+            goto OPERATION;
         case 2:
-            break;
+            add_new_book();
+            goto OPERATION;
         case 3:
-            break;
+            delete_book();
         case 4:
-            break;
+            search_book_information();
+            goto OPERATION;
         case 5:
             goto OPERATION;
         default:
@@ -100,8 +108,8 @@ OPERATION:
              << "1 --> change client information\n"
              << "2 --> add new client\n"
              << "3 --> reset client information\n"
-             << "4 -->search client information\n"
-             << "5-->go back\n";
+             << "4 --> search client information\n"
+             << "5 --> go back\n";
         cin >> func;
         switch (func)
         {
@@ -169,18 +177,84 @@ void Library::chang_book_information()
     cout << "Please input the book name or ISBN.\n";
     string str;
     cin >> str;
-    Book *selected = accuSearch(str);
+    cout << endl;
+    Book *selected = book_ware->accuSearch(str);
     cout << "Which do you want to change?\n"
          << "1 --> name\n"
          << "2 --> ISBN\n"
          << "3 --> type\n"
          << "4 --> author\n";
     int func;
-    cout << "input your content";
+    cin >> func;
+    cout << "input your content\n";
     cin >> str;
     switch (func)
     {
     case 1:
-        selected
+        selected->name = str;
+        break;
+    case 2:
+        selected->ISBN = str;
+        break;
+    case 3:
+        selected->type = str;
+        break;
+    case 4:
+        selected->author = str;
+        break;
     }
+    cout << "DONE\n\n";
+}
+
+void Library::add_new_book()
+{
+    Book *new_book = new Book;
+    cout << "Please input book name,ISBN,author,type by order.\n"
+         << "name:";
+    cin.get();
+    getline(cin, new_book->name);
+    cout << endl
+         << "ISBN:";
+    getline(cin, new_book->ISBN);
+    cout << endl
+         << "author:";
+    getline(cin, new_book->author);
+    cout << endl
+         << "type:";
+    getline(cin, new_book->type);
+    book_ware->insert(new_book);
+    cout << "Done.\n\n";
+}
+
+void Library::delete_book()
+{
+    string str;
+    cout << "Please input book name or ISBN:\n";
+    cin >> str;
+    book_ware->deleteBook(str);
+    cout << "Done\n\n";
+}
+
+void Library::search_book_information()
+{
+    cout << "Which way do you like to search by?\n"
+         << "1 --> name or ISBN\n"
+         << "2 --> author\n"
+         << "3 --> type\n";
+    int func;
+    cin >> func;
+    string str;
+    cout << "Please input your content:\n";
+    cin >> str;
+    switch (func)
+    {
+    case 1:
+        book_ware->printInf(book_ware->accuSearch(str));
+    case 2:
+        book_ware->vagueSearchAuthor(str);
+    case 3:
+        book_ware->vagueSearchType(str);
+    }
+    cout << "DONE\n\n";
+    system("pause");
 }

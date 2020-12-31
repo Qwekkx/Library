@@ -14,8 +14,11 @@ private:
 
 public:
     BookWare() : root(NULL), capacity(0) {}
-    void insert(Book book);
-    Book *accuSearch(string accur);
+    void insert(Book *book) {}
+    Book *accuSearch(string accur) { return new Book; }
     Book *search(long long ID);
-    Book *vagueSearch(string vague);
+    void vagueSearchAuthor(string vague) {}
+    void vagueSearchType(string vague) {}
+    Book *deleteBook(string book) {}
+    void printInf(Book *book) {}
 };
