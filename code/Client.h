@@ -14,4 +14,5 @@ public:
     Client() : record(NULL) {}
     ~Client() {}
     void recordUpdate(Record new_record);
+    void run() {}
 };
