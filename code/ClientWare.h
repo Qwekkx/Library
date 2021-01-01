@@ -10,6 +10,7 @@ private:
 
 public:
     ClientWare() : root(NULL), capacity(0) {}
-    void insert(Client new_client) {}
+    void insert(Client *new_client) {}
     Client *search(string username) {}
+    void print(Client *client) {}
 };

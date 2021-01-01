@@ -22,11 +22,14 @@ public:
     void run();
     void chang_book_information();
     void add_new_book();
+    void add_new_client();
     void delete_book();
     void search_book_information();
     void initialization() {}
     void save_data() {}
     void borrow_book();
+    void change_client_info();
+    void search_client_info();
 };
 
 Library::Library() : admin(new Administrator),
@@ -88,15 +91,16 @@ OPERATION:
         {
         case 1:
             chang_book_information();
-            goto OPERATION;
+            goto BOOKMANAGE;
         case 2:
             add_new_book();
-            goto OPERATION;
+            goto BOOKMANAGE;
         case 3:
             delete_book();
+            goto BOOKMANAGE;
         case 4:
             search_book_information();
-            goto OPERATION;
+            goto BOOKMANAGE;
         case 5:
             goto OPERATION;
         default:
@@ -109,21 +113,21 @@ OPERATION:
         cout << "You are operating clientware.\nSelect your operation:\n"
              << "1 --> change client information\n"
              << "2 --> add new client\n"
-             << "3 --> reset client information\n"
-             << "4 --> search client information\n"
-             << "5 --> go back\n";
+             << "3 --> search client information\n"
+             << "4 --> go back\n";
         cin >> func;
         switch (func)
         {
         case 1:
+            change_client_info();
             break;
         case 2:
+            add_new_client();
             break;
         case 3:
+
             break;
         case 4:
-            break;
-        case 5:
             goto OPERATION;
 
         default:
@@ -269,7 +273,7 @@ void Library::borrow_book()
 {
     cout << "Please input the book's name which you want to borrow.\n";
     string str;
-    Book *borrowed = book_ware->search(str);
+    Book *borrowed = book_ware->accuSearch(str);
     cout << "Please input the borrow date like '2020 12 31'\n";
     string date;
     cin.get();
@@ -279,4 +283,52 @@ void Library::borrow_book()
     cin >> duration;
     Record new_record{str, date, borrowed, duration};
     client->recordUpdate(new_record);
+}
+
+void Library::change_client_info()
+{
+    cout << "Input the client name\n";
+    string str;
+    cin >> str;
+    cout << endl;
+    Client *selected = client_ware->search(str);
+    cout << "Which do you want to change?\n"
+         << "1 --> username\n"
+         << "2 --> password\n";
+    int func;
+    cin >> func;
+    cout << "input your content\n";
+    cin >> str;
+    switch (func)
+    {
+    case 1:
+        selected->user_name = str;
+        break;
+    case 2:
+        selected->password = str;
+    }
+    cout << "DONE\n\n";
+}
+
+void Library::add_new_client()
+{
+    Client *new_client = new Client;
+    cout << "Please input username and password by order.\n"
+         << "username:";
+    cin.get();
+    getline(cin, new_client->user_name);
+    cout << endl
+         << "password:";
+    getline(cin, new_client->password);
+    client_ware->insert(new_client);
+    cout << "Done.\n\n";
+}
+
+void Library::search_client_info()
+{
+    cout << "Please input username:\n";
+    string str;
+    cin >> str;
+    client_ware->print(client_ware->search(str));
+    cout << "DONE\n\n";
 }

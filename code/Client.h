@@ -13,7 +13,6 @@ private:
 public:
     Client() : record(NULL) {}
     ~Client() {}
-    void recordUpdate(Record new_record);
-    void run() {}
+    void recordUpdate(Record new_record) {}
     void check_record(){};
 };
