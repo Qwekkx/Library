@@ -14,3 +14,4 @@ public:
     Client *search(string username) {}
     void print(Client *client) {}
 };
+
