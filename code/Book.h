@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #pragma once
 using namespace std;
 
@@ -11,7 +12,7 @@ public:
     string author;
     string type;
 
-    Book() : ID(0), lended(false), left(NULL), right(NULL) {}
+    Book() : lended(false) {}
     Book(string a, string b, string c, string d) : name(a), ISBN(b), author(c), type(d) {}
     void printInfo();
     bool operator<(Book anthor) { return this->name < anthor.name; }
