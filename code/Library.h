@@ -383,4 +383,18 @@ void Library::initialization()
         new_client->password = password;
         client_ware->insert(new_client);
     }
+    fin.close();
+    fin.open("BookWare.txt");
+    while (getline(fin, line))
+    {
+        string name, ISBN, author, type;
+        stringstream stream;
+        stream << line;
+        stream >> name >> ISBN >> author >> type;
+        Book *new_book = new Book;
+        new_book->name = name, new_book->ISBN = ISBN,
+        new_book->author = author, new_book->type = type;
+        book_ware->insert(new_book);
+    }
+    fin.close();
 }

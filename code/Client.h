@@ -12,10 +12,8 @@ private:
     vector<Record> database;
 
 public:
-    Client() : record(NULL) {}
-    ~Client() {}
-    void recordUpdate(Record new_record) {}
-    void check_record(){};
+    void recordUpdate(Record new_record);
+    void check_record();
     void printInfo();
 };
 

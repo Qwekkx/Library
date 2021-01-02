@@ -28,13 +28,11 @@ void User::set()
         cout << "Please input your new username\n";
         cin >> user_name;
         cout << "DONE\n";
-        system("pause");
         break;
     case 2:
         cout << "Please input your new password\n";
         cin >> password;
         cout << "DONE.\n";
-        system("pause");
     default:
         break;
     }
