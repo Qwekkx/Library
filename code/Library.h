@@ -11,7 +11,7 @@ using namespace std;
 
 class Library
 {
-private:
+public:
     Administrator *admin;
     BookWare *book_ware;
     Client *client;
@@ -370,7 +370,7 @@ void Library::initialization()
     admin->user_name = a;
     admin->password = b;
     fin.close();
-    fin.open("ClientWare.savedata");
+    fin.open("ClientWare.txt");
     string line;
     while (getline(fin, line))
     {
