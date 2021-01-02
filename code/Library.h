@@ -4,6 +4,8 @@
 #include "BookWare.h"
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
 using namespace std;
 #pragma once
 
@@ -14,22 +16,22 @@ private:
     BookWare *book_ware;
     Client *client;
     ClientWare *client_ware;
-
-public:
-    Library();
     void userRun();
     void adminRun();
-    void run();
     void chang_book_information();
     void add_new_book();
     void add_new_client();
     void delete_book();
     void search_book_information();
-    void initialization() {}
-    void save_data() {}
     void borrow_book();
     void change_client_info();
     void search_client_info();
+
+public:
+    Library();
+    void run();
+    void initialization();
+    void save_data() {}
 };
 
 Library::Library() : admin(new Administrator),
@@ -120,12 +122,15 @@ OPERATION:
         {
         case 1:
             change_client_info();
+            goto CLIENTMANAGE;
             break;
         case 2:
             add_new_client();
+            goto CLIENTMANAGE;
             break;
         case 3:
-
+            search_client_info();
+            goto CLIENTMANAGE;
             break;
         case 4:
             goto OPERATION;
@@ -296,8 +301,8 @@ void Library::search_book_information()
 void Library::borrow_book()
 {
     cout << "Please input the book's name which you want to borrow.\n";
-    string str;
-    bookNode *borrowed = book_ware->SearchByName(str);
+    string name;
+    bookNode *borrowed = book_ware->SearchByName(name);
     cout << "Please input the borrow date like '2020 12 31'\n";
     string date;
     cin.get();
@@ -305,7 +310,7 @@ void Library::borrow_book()
     cout << "Please input the duration:\n";
     long long duration;
     cin >> duration;
-    Record new_record{str, date, &borrowed->data, duration};
+    Record new_record{name, date, &borrowed->data, duration};
     client->recordUpdate(new_record);
 }
 
@@ -353,6 +358,29 @@ void Library::search_client_info()
     cout << "Please input username:\n";
     string str;
     cin >> str;
-    client_ware->print(client_ware->search(str));
+    client_ware->search(str)->printInfo();
     cout << "DONE\n\n";
+}
+
+void Library::initialization()
+{
+    ifstream fin("Admin.txt");
+    string a, b;
+    fin >> a >> b;
+    admin->user_name = a;
+    admin->password = b;
+    fin.close();
+    fin.open("ClientWare.savedata");
+    string line;
+    while (getline(fin, line))
+    {
+        string name, password;
+        stringstream stream;
+        stream << line;
+        stream >> name >> password;
+        Client *new_client = new Client;
+        new_client->user_name = name;
+        new_client->password = password;
+        client_ware->insert(new_client);
+    }
 }
