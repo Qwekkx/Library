@@ -184,33 +184,46 @@ OPERATION:
 
 void Library::chang_book_information()
 {
-    cout << "Please input the book name or ISBN.\n";
+    cout << "Please input the book name or ISBN.\n"
+         << "1 -->name\n"
+         << "2 -->ISBN\n";
+    int func;
+    cin >> func;
+    cout << "Please input your content:\n";
     string str;
     cin >> str;
     cout << endl;
-    Book *selected = book_ware->accuSearch(str);
+    bookNode *selected;
+    switch (func)
+    {
+    case 1:
+        selected = book_ware->SearchByName(str);
+        break;
+    case 2:
+        selected = book_ware->SearchByISBN(str);
+        break;
+    }
     cout << "Which do you want to change?\n"
          << "1 --> name\n"
          << "2 --> ISBN\n"
          << "3 --> type\n"
          << "4 --> author\n";
-    int func;
     cin >> func;
     cout << "input your content\n";
     cin >> str;
     switch (func)
     {
     case 1:
-        selected->name = str;
+        selected->data.name = str;
         break;
     case 2:
-        selected->ISBN = str;
+        selected->data.ISBN = str;
         break;
     case 3:
-        selected->type = str;
+        selected->data.type = str;
         break;
     case 4:
-        selected->author = str;
+        selected->data.author = str;
         break;
     }
     cout << "DONE\n\n";
@@ -248,22 +261,33 @@ void Library::delete_book()
 void Library::search_book_information()
 {
     cout << "Which way do you like to search by?\n"
-         << "1 --> name or ISBN\n"
-         << "2 --> author\n"
-         << "3 --> type\n";
+         << "1 --> name\n"
+         << "2 -->ISBN\n"
+         << "3 --> author\n"
+         << "4 --> type\n";
     int func;
     cin >> func;
     string str;
     cout << "Please input your content:\n";
     cin >> str;
+    bookNode *book;
     switch (func)
     {
     case 1:
-        book_ware->printInf(book_ware->accuSearch(str));
+        book = book_ware->SearchByName(str);
+        book->data.printInfo();
+        break;
     case 2:
-        book_ware->vagueSearchAuthor(str);
+        book = book_ware->SearchByISBN(str);
+        book->data.printInfo();
+        break;
+
     case 3:
-        book_ware->vagueSearchType(str);
+        book_ware->SearchByAuthor(str);
+        break;
+    case 4:
+        book_ware->SearchByType(str);
+        break;
     }
     cout << "DONE\n\n";
     system("pause");
@@ -273,7 +297,7 @@ void Library::borrow_book()
 {
     cout << "Please input the book's name which you want to borrow.\n";
     string str;
-    Book *borrowed = book_ware->accuSearch(str);
+    bookNode *borrowed = book_ware->SearchByName(str);
     cout << "Please input the borrow date like '2020 12 31'\n";
     string date;
     cin.get();
@@ -281,7 +305,7 @@ void Library::borrow_book()
     cout << "Please input the duration:\n";
     long long duration;
     cin >> duration;
-    Record new_record{str, date, borrowed, duration};
+    Record new_record{str, date, &borrowed->data, duration};
     client->recordUpdate(new_record);
 }
 

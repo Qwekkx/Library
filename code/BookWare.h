@@ -19,6 +19,7 @@ public:
     void insert(Book *book);
     void insert(Book *book, bookNode *&father);
     bookNode *SearchByName(string dst);
+    bookNode *SearchByISBN(string dst);
     bookNode *SearchByName(string dst, bookNode *father);
     bookNode *SearchByISBN(string dst, bookNode *father);
     void SearchByAuthor(string vague);
@@ -33,6 +34,11 @@ bookNode *BookWare::SearchByName(string dst)
     return SearchByName(dst, root);
 }
 
+bookNode *BookWare::SearchByISBN(string dst)
+{
+    return SearchByISBN(dst, root);
+}
+
 bookNode *BookWare::SearchByName(string dst, bookNode *father)
 {
     if (father == NULL)
@@ -41,15 +47,13 @@ bookNode *BookWare::SearchByName(string dst, bookNode *father)
         return father;
     else if (dst > father->data.name)
         return SearchByName(dst, father->right);
-    else if (dst < father->data.name)
+    else
         return SearchByName(dst, father->left);
 }
 
 bookNode *BookWare::SearchByISBN(string dst, bookNode *father)
 {
-    map<string, string>::iterator it_find;
-    it_find = ISBN_to_name.find(dst);
-    return SearchByName(it_find->second);
+    return SearchByName(ISBN_to_name[dst]);
 }
 
 void BookWare::SearchByAuthor(string vague)
@@ -75,15 +79,16 @@ void BookWare::SearchByAuthor(string vague, bookNode *father)
 void BookWare::SearchByType(string vague)
 {
     SearchByType(vague, root);
-    sort(printlist.begin(), printList.end());
-    for (int i = 0; i < printList.size(), i++)
+    sort(printList.begin(), printList.end());
+    long long Len = printList.size();
+    for (int i = 0; i < Len; i++)
         printList[i].printInfo();
     printList.clear();
 }
 
 void BookWare::SearchByType(string vague, bookNode *father)
 {
-    if (father = NULL)
+    if (father == NULL)
         return;
     else if (father->data.type == vague)
         printList.push_back(father->data);
@@ -96,7 +101,7 @@ void BookWare::insert(Book *book)
     if (SearchByName(book->name) == NULL)
     {
         insert(book, root);
-        ISBN_to_name.insert(book->ISBN, book->name);
+        ISBN_to_name[book->ISBN] = book->name;
     }
     else
         return;
