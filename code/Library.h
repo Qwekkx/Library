@@ -31,7 +31,7 @@ public:
     Library();
     void run();
     void initialization();
-    void save_data() {}
+    void save_data();
 };
 
 Library::Library() : admin(new Administrator),
@@ -295,7 +295,6 @@ void Library::search_book_information()
         break;
     }
     cout << "DONE\n\n";
-    system("pause");
 }
 
 void Library::borrow_book()
@@ -398,3 +397,10 @@ void Library::initialization()
     }
     fin.close();
 }
+
+void Library::save_data()
+{
+    
+}
+
+
