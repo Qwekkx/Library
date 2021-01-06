@@ -398,9 +398,6 @@ void Library::initialization()
     fin.close();
 }
 
-void Library::save_data()
-{
-    
-}
+
 
 
