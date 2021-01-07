@@ -12,6 +12,8 @@ private:
     vector<Record> database;
 
 public:
+    Client() {}
+    Client(string a, string b) : User(a, b) {}
     void recordUpdate(Record new_record);
     void check_record();
     void printInfo();

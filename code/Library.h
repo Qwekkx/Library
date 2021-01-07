@@ -428,8 +428,7 @@ void Library::initialization()
     ifstream fin("Admin.txt");
     string a, b;
     fin >> a >> b;
-    admin->user_name = a;
-    admin->password = b;
+    admin->user_name = a, admin->password = b;
     fin.close();
     fin.open("ClientWare.txt");
     string line;
@@ -439,10 +438,7 @@ void Library::initialization()
         stringstream stream;
         stream << line;
         stream >> name >> password;
-        Client *new_client = new Client;
-        new_client->user_name = name;
-        new_client->password = password;
-        client_ware->insert(new_client);
+        client_ware->insert(new Client(name, password));
     }
     fin.close();
     fin.open("BookWare.txt");
@@ -452,10 +448,7 @@ void Library::initialization()
         stringstream stream;
         stream << line;
         stream >> name >> ISBN >> author >> type;
-        Book *new_book = new Book;
-        new_book->name = name, new_book->ISBN = ISBN,
-        new_book->author = author, new_book->type = type;
-        book_ware->insert(new_book);
+        book_ware->insert(new Book(name, ISBN, author, type));
     }
     fin.close();
 }
@@ -464,4 +457,5 @@ void Library::save_data()
 {
     ofstream fout("Admin.txt");
     fout << admin->user_name << ' ' << admin->password;
+    fout.close();
 }

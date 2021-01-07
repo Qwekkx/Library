@@ -9,9 +9,7 @@
 class Administrator : public User
 {
 private:
-
 public:
-    Administrator() : User() { ID = 666666, user_name = "Admin", password = "yysyqs"; }
+    Administrator() {}
     ~Administrator() {}
 };
-

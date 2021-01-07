@@ -6,10 +6,10 @@ using namespace std;
 class User
 {
 public:
-    long long ID;
     string user_name;
     string password;
     User() {}
+    User(string a, string b) : user_name(a), password(b) {}
     ~User() {}
     void set();
 };
