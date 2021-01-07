@@ -16,6 +16,7 @@ public:
 
 void User::set()
 {
+    system("cls");
     cout << "Which would you like to reset?\n"
          << "1    --> username\n"
          << "2    --> password\n"

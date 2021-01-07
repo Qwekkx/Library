@@ -262,7 +262,7 @@ void Library::add_new_book()
 {
     system("cls");
     Book *new_book = new Book;
-    cout << "Please input book name,ISBN,author,type by order.\n"
+    cout << "Please input book name,ISBN,author,type,num by order.\n"
          << "name:";
     cin.get();
     getline(cin, new_book->name);
@@ -275,6 +275,9 @@ void Library::add_new_book()
     cout << endl
          << "type:";
     getline(cin, new_book->type);
+    cout << endl
+         << "num:";
+    getline(cin, new_book->num);
     book_ware->insert(new_book);
     cout << "Done.\n\n";
 }
@@ -342,12 +345,13 @@ void Library::borrow_book()
     cout << "Please input the book's name which you want to borrow.\n";
     string name;
     bookNode *borrowed = book_ware->SearchByName(name);
-    if (borrowed == NULL)
+    if (borrowed == NULL && borrowed->data.num == 0)
     {
         cout << "Book not found\n";
         system("pause");
         return;
     }
+    borrowed->data.num--;
     cout << "Please input the borrow date like '2020 12 31'\n";
     string date;
     cin.get();
@@ -445,10 +449,11 @@ void Library::initialization()
     while (getline(fin, line))
     {
         string name, ISBN, author, type;
+        int num;
         stringstream stream;
         stream << line;
-        stream >> name >> ISBN >> author >> type;
-        book_ware->insert(new Book(name, ISBN, author, type));
+        stream >> name >> ISBN >> author >> type >> num;
+        book_ware->insert(new Book(name, ISBN, author, type, num));
     }
     fin.close();
 }

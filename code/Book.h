@@ -6,14 +6,13 @@ using namespace std;
 class Book
 {
 public:
-    bool lended;
+    int num;
     string name;
     string ISBN;
     string author;
     string type;
-
-    Book() : lended(false) {}
-    Book(string a, string b, string c, string d) : name(a), ISBN(b), author(c), type(d) {}
+    Book() : num(0) {}
+    Book(string a, string b, string c, string d, int e) : name(a), ISBN(b), author(c), type(d), num(e) {}
     void printInfo();
     bool operator<(Book anthor) { return this->name < anthor.name; }
 };
@@ -29,5 +28,6 @@ struct bookNode
 
 void Book::printInfo()
 {
-    cout << "name: " << name << " ISBN: " << ISBN << " author: " << author << " type: " << type << endl;
+    cout << "name: " << name << " ISBN: " << ISBN << " author: "
+         << author << " type: " << type << " num :" << num << endl;
 }
