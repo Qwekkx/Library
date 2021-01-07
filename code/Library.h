@@ -73,7 +73,7 @@ void Library::adminRun()
     system("cls");
     if (password != admin->password)
     {
-        cout << "password wrong, endding program.";
+        cout << "password wrong, endding program.\n";
         system("pause");
         return;
     }
@@ -117,7 +117,7 @@ OPERATION:
         case 5:
             goto OPERATION;
         default:
-            cout << "warning: invalid operation. Please change your input.\n\n";
+            cout << "warning: invalid operation. Please change your input.\n";
             goto BOOKMANAGE;
         }
         break;
@@ -156,7 +156,8 @@ OPERATION:
         admin->set();
         goto OPERATION;
     case 4:
-        cout << "thanks for using";
+        cout << "thanks for using\n";
+        system("pause");
         break;
     default:
         cout << "warning: invalid operation. Please change your input.\n\n";
@@ -173,13 +174,14 @@ void Library::userRun()
     system("cls");
     if (password != client->password)
     {
-        cout << "password wrong, endding program.";
+        cout << "password wrong, endding program.\n";
         system("pause");
         return;
     }
     int func;
     cout << "Correct.\n";
 OPERATION:
+    system("cls");
     cout << "Select your operation:\n"
          << "1 --> search book\n"
          << "2 --> borrow book\n"
@@ -192,12 +194,24 @@ OPERATION:
     {
     case 1:
         search_book_information();
+        goto OPERATION;
     case 2:
         borrow_book();
+        goto OPERATION;
+
     case 3:
         client->check_record();
+        goto OPERATION;
+
     case 4:
         client->set();
+        goto OPERATION;
+
+    case 5:
+        cout
+            << "thanks for using\n";
+        system("pause");
+        return;
     default:
         cout << "warning: invalid operation. Please change your input.\n\n";
         goto OPERATION;
@@ -300,7 +314,7 @@ void Library::search_book_information()
     system("cls");
     cout << "Which way do you like to search by?\n"
          << "1 --> name\n"
-         << "2 -->ISBN\n"
+         << "2 --> ISBN\n"
          << "3 --> author\n"
          << "4 --> type\n";
     int func;
@@ -348,6 +362,7 @@ void Library::borrow_book()
     system("cls");
     cout << "Please input the book's name which you want to borrow.\n";
     string name;
+    cin >> name;
     bookNode *borrowed = book_ware->SearchByName(name);
     if (borrowed == NULL && borrowed->data.num == 0)
     {

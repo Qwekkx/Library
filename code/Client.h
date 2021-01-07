@@ -31,7 +31,13 @@ void Client::recordUpdate(Record new_record)
 
 void Client::check_record()
 {
+    system("cls");
+    cout << "You have borrowed " << database.size() << " books.\n";
     int len = database.size();
     for (int i = 0; i < len; i++)
+    {
+        cout << i + 1 << " --> ";
         database[i].printInfo();
+    }
+    system("pause");
 }

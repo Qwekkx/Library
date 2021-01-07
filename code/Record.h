@@ -10,9 +10,8 @@ public:
 
 void Record::printInfo()
 {
-    cout << "name: " << name
-         << "data: " << date
-         << "book: " << book->name
-         << "duration: " << duration
+    cout << " book: " << name
+         << " date: " << date
+         << " duration: " << duration
          << endl;
 }
