@@ -145,7 +145,6 @@ OPERATION:
             break;
         case 4:
             goto OPERATION;
-
         default:
             cout << "warning: invalid operation. Please change your input.\n\n";
             goto CLIENTMANAGE;
@@ -197,15 +196,12 @@ OPERATION:
     case 2:
         borrow_book();
         goto OPERATION;
-
     case 3:
         client->check_record();
         goto OPERATION;
-
     case 4:
         client->set();
         goto OPERATION;
-
     case 5:
         cout
             << "thanks for using\n";
