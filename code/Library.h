@@ -46,12 +46,11 @@ void Library::run()
     cin >> name;
     cout << endl;
     if (name == admin->user_name)
-    {
         adminRun();
-    }
     else
     {
         client = client_ware->search(name);
+        system("cls");
         if (client == NULL)
             cout << "User not found,please check out.";
         else
@@ -62,11 +61,17 @@ void Library::run()
 void Library::adminRun()
 {
     string password;
+    system("cls");
     cout << "Administrator, Please enter your password:\n";
     cin >> password;
     cout << endl;
+    system("cls");
     if (password != admin->password)
+    {
+        cout << "password wrong, endding program.";
+        system("pause");
         return;
+    }
     int func;
     cout << "Correct. \n";
 OPERATION:
@@ -81,6 +86,7 @@ OPERATION:
     {
     case 1:
     BOOKMANAGE:
+        system("cls");
         cout << "You are operating bookware.\nSelect your operation:\n"
              << "1 --> change book informantion\n"
              << "2 --> add new book\n"
@@ -112,6 +118,7 @@ OPERATION:
         break;
     case 2:
     CLIENTMANAGE:
+        system("cls");
         cout << "You are operating clientware.\nSelect your operation:\n"
              << "1 --> change client information\n"
              << "2 --> add new client\n"
@@ -158,8 +165,13 @@ void Library::userRun()
     cout << "Please enter your password:\n";
     cin >> password;
     cout << endl;
+    system("cls");
     if (password != client->password)
+    {
+        cout << "password wrong, endding program.";
+        system("pause");
         return;
+    }
     int func;
     cout << "Correct.\n";
 OPERATION:
@@ -189,6 +201,7 @@ OPERATION:
 
 void Library::chang_book_information()
 {
+    system("cls");
     cout << "Please input the book name or ISBN.\n"
          << "1 -->name\n"
          << "2 -->ISBN\n";
@@ -236,6 +249,7 @@ void Library::chang_book_information()
 
 void Library::add_new_book()
 {
+    system("cls");
     Book *new_book = new Book;
     cout << "Please input book name,ISBN,author,type by order.\n"
          << "name:";
@@ -256,6 +270,7 @@ void Library::add_new_book()
 
 void Library::delete_book()
 {
+    system("cls");
     string str;
     cout << "Please input book name or ISBN:\n";
     cin >> str;
@@ -265,6 +280,7 @@ void Library::delete_book()
 
 void Library::search_book_information()
 {
+    system("cls");
     cout << "Which way do you like to search by?\n"
          << "1 --> name\n"
          << "2 -->ISBN\n"
@@ -299,6 +315,7 @@ void Library::search_book_information()
 
 void Library::borrow_book()
 {
+    system("cls");
     cout << "Please input the book's name which you want to borrow.\n";
     string name;
     bookNode *borrowed = book_ware->SearchByName(name);
@@ -315,6 +332,7 @@ void Library::borrow_book()
 
 void Library::change_client_info()
 {
+    system("cls");
     cout << "Input the client name\n";
     string str;
     cin >> str;
@@ -340,6 +358,7 @@ void Library::change_client_info()
 
 void Library::add_new_client()
 {
+    system("cls");
     Client *new_client = new Client;
     cout << "Please input username and password by order.\n"
          << "username:";
@@ -354,6 +373,7 @@ void Library::add_new_client()
 
 void Library::search_client_info()
 {
+    system("cls");
     cout << "Please input username:\n";
     string str;
     cin >> str;
@@ -398,6 +418,8 @@ void Library::initialization()
     fin.close();
 }
 
-
-
-
+void Library::save_data()
+{
+    ofstream fout("Admin.txt");
+    fout << admin->user_name << ' ' << admin->password;
+}
