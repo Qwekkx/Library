@@ -7,6 +7,10 @@
 #pragma once
 using namespace std;
 
+// 二叉搜索树以书名为关键码，为保证能用ISBN搜索，
+// 使用map建立ISBN到name的索引，用ISBN搜索时先
+// 转化为name
+
 class BookWare
 {
 private:
@@ -51,6 +55,8 @@ bookNode *BookWare::SearchByName(string dst, bookNode *father)
         return SearchByName(dst, father->left);
 }
 
+//典型的二叉搜索树搜索数据函数，下同
+
 bookNode *BookWare::SearchByISBN(string dst, bookNode *father)
 {
     return SearchByName(ISBN_to_name[dst]);
@@ -65,6 +71,10 @@ void BookWare::SearchByAuthor(string vague)
         printList[i].printInfo();
     printList.clear();
 }
+
+// 为保证按书名字典序输出，使用了vector储存输出列表
+// 先作一个前序遍历，将符合要求的书存储到列表里，然后
+// 按书名排序，最后逐个输出信息
 
 void BookWare::SearchByAuthor(string vague, bookNode *father)
 {
@@ -106,6 +116,8 @@ void BookWare::insert(Book *book)
     else
         return;
 }
+
+//典型的二叉搜索树插入语句
 
 void BookWare::insert(Book *book, bookNode *&father)
 {

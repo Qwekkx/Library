@@ -34,10 +34,14 @@ public:
     void save_data();
 };
 
+// 仅有三个公有接口，其余皆为私有接口，供公有接口run()使用
+// 成员变量皆为指针，
+
 Library::Library() : admin(new Administrator),
                      book_ware(new BookWare),
                      client(NULL),
                      client_ware(new ClientWare) {}
+// 通过初始化列表为所有指针new空间
 
 void Library::run()
 {
@@ -57,6 +61,7 @@ void Library::run()
             userRun();
     }
 }
+//run()为主程序，首先要求用户提供用户名，并判断是否有该用户
 
 void Library::adminRun()
 {
@@ -221,6 +226,12 @@ void Library::chang_book_information()
         selected = book_ware->SearchByISBN(str);
         break;
     }
+    if (selected == NULL)
+    {
+        cout << "Book not found\n";
+        system("pause");
+        return;
+    }
     cout << "Which do you want to change?\n"
          << "1 --> name\n"
          << "2 --> ISBN\n"
@@ -296,10 +307,22 @@ void Library::search_book_information()
     {
     case 1:
         book = book_ware->SearchByName(str);
+        if (book == NULL)
+        {
+            cout << "Book not found\n";
+            system("pause");
+            return;
+        }
         book->data.printInfo();
         break;
     case 2:
         book = book_ware->SearchByISBN(str);
+        if (book == NULL)
+        {
+            cout << "Book not found\n";
+            system("pause");
+            return;
+        }
         book->data.printInfo();
         break;
 
@@ -319,6 +342,12 @@ void Library::borrow_book()
     cout << "Please input the book's name which you want to borrow.\n";
     string name;
     bookNode *borrowed = book_ware->SearchByName(name);
+    if (borrowed == NULL)
+    {
+        cout << "Book not found\n";
+        system("pause");
+        return;
+    }
     cout << "Please input the borrow date like '2020 12 31'\n";
     string date;
     cin.get();
@@ -338,6 +367,12 @@ void Library::change_client_info()
     cin >> str;
     cout << endl;
     Client *selected = client_ware->search(str);
+    if (selected == NULL)
+    {
+        cout << "Client not found\n";
+        system("pause");
+        return;
+    }
     cout << "Which do you want to change?\n"
          << "1 --> username\n"
          << "2 --> password\n";
@@ -377,7 +412,14 @@ void Library::search_client_info()
     cout << "Please input username:\n";
     string str;
     cin >> str;
-    client_ware->search(str)->printInfo();
+    Client *selected = client_ware->search(str);
+    if (selected == NULL)
+    {
+        cout << "Client not found\n";
+        system("pause");
+        return;
+    }
+    selected->printInfo();
     cout << "DONE\n\n";
 }
 
