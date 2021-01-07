@@ -277,7 +277,7 @@ void Library::add_new_book()
     getline(cin, new_book->type);
     cout << endl
          << "num:";
-    getline(cin, new_book->num);
+    cin >> new_book->num;
     book_ware->insert(new_book);
     cout << "Done.\n\n";
 }
