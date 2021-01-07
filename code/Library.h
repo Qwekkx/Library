@@ -255,7 +255,8 @@ void Library::chang_book_information()
         selected->data.author = str;
         break;
     }
-    cout << "DONE\n\n";
+    cout << "DONE\n";
+    system("pause");
 }
 
 void Library::add_new_book()
@@ -280,6 +281,7 @@ void Library::add_new_book()
     cin >> new_book->num;
     book_ware->insert(new_book);
     cout << "Done.\n\n";
+    system("pause");
 }
 
 void Library::delete_book()
@@ -289,7 +291,8 @@ void Library::delete_book()
     cout << "Please input book name or ISBN:\n";
     cin >> str;
     book_ware->deleteBook(str);
-    cout << "Done\n\n";
+    cout << "Done\n";
+    system("pause");
 }
 
 void Library::search_book_information()
@@ -336,7 +339,8 @@ void Library::search_book_information()
         book_ware->SearchByType(str);
         break;
     }
-    cout << "DONE\n\n";
+    cout << "DONE\n";
+    system("pause");
 }
 
 void Library::borrow_book()
@@ -361,6 +365,8 @@ void Library::borrow_book()
     cin >> duration;
     Record new_record{name, date, &borrowed->data, duration};
     client->recordUpdate(new_record);
+    cout << "DONE\n";
+    system("pause");
 }
 
 void Library::change_client_info()
@@ -392,7 +398,8 @@ void Library::change_client_info()
     case 2:
         selected->password = str;
     }
-    cout << "DONE\n\n";
+    cout << "DONE\n";
+    system("pause");
 }
 
 void Library::add_new_client()
@@ -407,7 +414,8 @@ void Library::add_new_client()
          << "password:";
     getline(cin, new_client->password);
     client_ware->insert(new_client);
-    cout << "Done.\n\n";
+    cout << "Done.\n";
+    system("pause");
 }
 
 void Library::search_client_info()
@@ -424,7 +432,8 @@ void Library::search_client_info()
         return;
     }
     selected->printInfo();
-    cout << "DONE\n\n";
+    cout << "DONE\n";
+    system("pause");
 }
 
 void Library::initialization()
