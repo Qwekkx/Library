@@ -12,7 +12,7 @@ public:
     string author;
     string type;
     Book() : num(0) {}
-    Book(string a, string b, string c, string d, int e) : name(a), ISBN(b), author(c), type(d), num(e) {}
+    Book(string a, string b, string c, string d, int e) : num(e), name(a), ISBN(b), author(c), type(d) {}
     void printInfo();
     bool operator<(Book anthor) { return this->name < anthor.name; }
 };

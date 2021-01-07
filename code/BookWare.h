@@ -67,6 +67,12 @@ void BookWare::SearchByAuthor(string vague)
     SearchByAuthor(vague, root);
     sort(printList.begin(), printList.end());
     long long Len = printList.size();
+    if (Len == 0)
+    {
+        cout << "Books not found.\n";
+        return;
+    }
+    cout << "find " << Len << " books:\n";
     for (int i = 0; i < Len; i++)
         printList[i].printInfo();
     printList.clear();
@@ -91,6 +97,12 @@ void BookWare::SearchByType(string vague)
     SearchByType(vague, root);
     sort(printList.begin(), printList.end());
     long long Len = printList.size();
+    if (Len == 0)
+    {
+        cout << "Books not found.\n";
+        return;
+    }
+
     for (int i = 0; i < Len; i++)
         printList[i].printInfo();
     printList.clear();

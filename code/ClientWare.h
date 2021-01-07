@@ -13,7 +13,6 @@ public:
 };
 // 使用vector存储用户数据
 
-
 Client *ClientWare::search(string username)
 {
     for (vector<Client>::iterator it = database.begin(); it != database.end(); it++)

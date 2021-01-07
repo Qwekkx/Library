@@ -70,7 +70,6 @@ void Library::adminRun()
     cout << "Administrator, Please enter your password:\n";
     cin >> password;
     cout << endl;
-    system("cls");
     if (password != admin->password)
     {
         cout << "password wrong, endding program.\n";
@@ -78,8 +77,8 @@ void Library::adminRun()
         return;
     }
     int func;
-    cout << "Correct. \n";
 OPERATION:
+    system("cls");
     cout << "Select your operation:\n"
          << "1 --> manage bookware\n"
          << "2 --> manage clientware\n"
