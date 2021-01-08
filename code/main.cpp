@@ -2,7 +2,7 @@
 int main()
 {
     Library library;
-    library.initialization();
+    library.read_data();
     library.run();
     library.save_data();
 }

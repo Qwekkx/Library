@@ -25,13 +25,14 @@ public:
     void delete_book();
     void search_book_information();
     void borrow_book();
+    void return_book();
     void change_client_info();
     void search_client_info();
 
 public:
     Library();
     void run();
-    void initialization();
+    void read_data();
     void save_data();
 };
 
@@ -184,9 +185,10 @@ OPERATION:
     cout << "Select your operation:\n"
          << "1 --> search book\n"
          << "2 --> borrow book\n"
-         << "3 --> check my borrow record\n"
-         << "4 --> change my username or password\n"
-         << "5 --> sign out\n";
+         << "3 --> return book\n"
+         << "4 --> check my borrow record\n"
+         << "5 --> change my username or password\n"
+         << "6 --> sign out\n";
     cin >> func;
     cout << endl;
     switch (func)
@@ -198,14 +200,16 @@ OPERATION:
         borrow_book();
         goto OPERATION;
     case 3:
+        return_book();
+    case 4:
         system("cls");
         cout << Record_userRecord(client->user_name) << endl;
         system("pause");
         goto OPERATION;
-    case 4:
+    case 5:
         client->set();
         goto OPERATION;
-    case 5:
+    case 6:
         cout
             << "thanks for using\n";
         system("pause");
@@ -376,7 +380,19 @@ void Library::borrow_book()
     cout << "Please input the duration:\n";
     long long duration;
     cin >> duration;
-    Record_changeUserRecord(client->user_name, name, date, duration, 1);
+    Record_changeUserRecord(client->user_name, name, date, duration, -1);
+    cout << "DONE\n";
+    system("pause");
+}
+
+void Library::return_book()
+{
+    system("cls");
+    cout << "Please input the book name that you want to return.\n";
+    string name;
+    cin >> name;
+    book_ware->SearchByName(name)->data.num++;
+    Record_ReturnBook(client->user_name, name);
     cout << "DONE\n";
     system("pause");
 }
@@ -449,35 +465,15 @@ void Library::search_client_info()
     system("pause");
 }
 
-void Library::initialization()
+void Library::read_data()
 {
     ifstream fin("Admin.txt");
     string a, b;
     fin >> a >> b;
     admin->user_name = a, admin->password = b;
     fin.close();
-    fin.open("ClientWare.txt");
-    string line;
-    while (getline(fin, line))
-    {
-        string name, password;
-        stringstream stream;
-        stream << line;
-        stream >> name >> password;
-        client_ware->insert(new Client(name, password));
-    }
-    fin.close();
-    fin.open("BookWare.txt");
-    while (getline(fin, line))
-    {
-        string name, ISBN, author, type;
-        int num;
-        stringstream stream;
-        stream << line;
-        stream >> name >> ISBN >> author >> type >> num;
-        book_ware->insert(new Book(name, ISBN, author, type, num));
-    }
-    fin.close();
+    client_ware->read_data();
+    book_ware->read_data();
 }
 
 void Library::save_data()
@@ -486,4 +482,6 @@ void Library::save_data()
     fout << admin->user_name << ' ' << admin->password;
     fout.close();
     Record_saveData();
+    client_ware->save_data();
+    book_ware->save_data();
 }

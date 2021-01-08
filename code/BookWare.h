@@ -3,6 +3,8 @@
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
 
 #pragma once
 using namespace std;
@@ -30,8 +32,29 @@ public:
     void SearchByAuthor(string vague, bookNode *father);
     void SearchByType(string vague);
     void SearchByType(string vague, bookNode *father);
-    void *deleteBook(string book) {}
+    void deleteBook(string book) {}
+    void read_data();
+    void save_data();
+    void save_data(bookNode *father);
 };
+
+//典型的二叉搜索树插入语句
+
+void BookWare::insert(Book *book, bookNode *&father)
+{
+    if (father == NULL)
+    {
+        father = new bookNode;
+        father->data = *book;
+    }
+    else if (father != NULL)
+    {
+        if (father->data.name > book->name)
+            insert(book, father->left);
+        else if (father->data.name < book->name)
+            insert(book, father->right);
+    }
+}
 
 bookNode *BookWare::SearchByName(string dst)
 {
@@ -129,20 +152,38 @@ void BookWare::insert(Book *book)
         return;
 }
 
-//典型的二叉搜索树插入语句
+void BookWare::read_data()
+{
+    ifstream fin("BookWare.txt");
+    string line;
+    while (getline(fin, line))
+    {
+        string name, ISBN, author, type;
+        int num;
+        stringstream stream;
+        stream << line;
+        stream >> name >> ISBN >> author >> type >> num;
+        this->insert(new Book(name, ISBN, author, type, num));
+    }
+    fin.close();
+}
 
-void BookWare::insert(Book *book, bookNode *&father)
+void BookWare::save_data()
+{
+    save_data(root);
+}
+
+void save_data(bookNode *father)
 {
     if (father == NULL)
+        return;
+    else
     {
-        father = new bookNode;
-        father->data = *book;
-    }
-    else if (father != NULL)
-    {
-        if (father->data.name > book->name)
-            insert(book, father->left);
-        else if (father->data.name < book->name)
-            insert(book, father->right);
+        fstream fout("BookWare.txt");
+        fout << father->data.name << ' ' << father->data.ISBN << ' '
+             << father->data.author << ' ' << father->data.type << ' '
+             << father->data.num;
+        save_data(father->left);
+        save_data(father->right);
     }
 }
