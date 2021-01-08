@@ -180,6 +180,8 @@ void BookWare::read_data()
 
 void BookWare::save_data()
 {
+    ofstream fout("text.txt", ios::out | ios::trunc);
+    fout.close();
     save_data(root);
 }
 
@@ -189,10 +191,10 @@ void BookWare::save_data(bookNode *father)
         return;
     else
     {
-        fstream fout("BookWare.txt");
+        ofstream fout("BookWare.txt", ios::app);
         fout << father->data.name << ' ' << father->data.ISBN << ' '
              << father->data.author << ' ' << father->data.type << ' '
-             << father->data.num;
+             << father->data.num << endl;
         save_data(father->left);
         save_data(father->right);
     }
