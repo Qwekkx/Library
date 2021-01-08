@@ -164,6 +164,7 @@ OPERATION:
         goto OPERATION;
     }
 }
+//adminRun里编写了主要的交互部分，并调用了相关函数
 
 void Library::userRun()
 {
@@ -220,6 +221,8 @@ OPERATION:
     }
 }
 
+//userRun同理
+
 void Library::chang_book_information()
 {
     system("cls");
@@ -274,6 +277,8 @@ void Library::chang_book_information()
     cout << "DONE\n";
     system("pause");
 }
+//重新设置书本信息
+//但不能直接改变书本数量
 
 void Library::add_new_book()
 {
@@ -299,6 +304,7 @@ void Library::add_new_book()
     cout << "Done.\n\n";
     system("pause");
 }
+//由管理员提供信息，增加一本新书
 
 void Library::delete_book()
 {
@@ -310,6 +316,7 @@ void Library::delete_book()
     cout << "Done\n";
     system("pause");
 }
+//根据书名删除一本书
 
 void Library::search_book_information()
 {
@@ -358,6 +365,8 @@ void Library::search_book_information()
     cout << "DONE\n";
     system("pause");
 }
+//书籍搜索功能，调用了bookWare类的四个接口，
+//实际的搜索函数分装在bookWare类内部
 
 void Library::borrow_book()
 {
@@ -384,6 +393,8 @@ void Library::borrow_book()
     cout << "DONE\n";
     system("pause");
 }
+//借书，需要提供借书名称，借阅日期，借书时间，
+//效果是更新图书馆的借阅记录
 
 void Library::return_book()
 {
@@ -396,6 +407,7 @@ void Library::return_book()
     cout << "DONE\n";
     system("pause");
 }
+//还书，用户提供所借书目名称，消除借阅记录
 
 void Library::change_client_info()
 {
@@ -430,6 +442,7 @@ void Library::change_client_info()
     cout << "DONE\n";
     system("pause");
 }
+//重设用户信息，只能设置用户名和密码
 
 void Library::add_new_client()
 {
@@ -446,6 +459,7 @@ void Library::add_new_client()
     cout << "Done.\n";
     system("pause");
 }
+//提供用户名和密码，生成一个新用户并插入到用户库内
 
 void Library::search_client_info()
 {
@@ -464,6 +478,7 @@ void Library::search_client_info()
     cout << "DONE\n";
     system("pause");
 }
+//查找功能，查找完毕会打印用户信息
 
 void Library::read_data()
 {
@@ -475,6 +490,7 @@ void Library::read_data()
     client_ware->read_data();
     book_ware->read_data();
 }
+//读档
 
 void Library::save_data()
 {
@@ -485,3 +501,4 @@ void Library::save_data()
     client_ware->save_data();
     book_ware->save_data();
 }
+//存档

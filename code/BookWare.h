@@ -41,14 +41,13 @@ public:
     void save_data(bookNode *father);
 };
 
-//典型的二叉搜索树插入语句
-
 void BookWare::deleteAll(bookNode *&father)
 {
     deleteAll(father->left);
     deleteAll(father->right);
     delete father;
 }
+//析构时调用该函数，希望能跑起来
 
 void BookWare::insert(Book *book, bookNode *&father)
 {
@@ -65,11 +64,15 @@ void BookWare::insert(Book *book, bookNode *&father)
             insert(book, father->right);
     }
 }
+//典型的二叉搜索树插入语句
 
 bookNode *BookWare::SearchByName(string dst)
 {
     return SearchByName(dst, root);
 }
+//区分外部接口和内部接口
+//递归函数必须要有bookNode实参才能实现，但是对外接口不可能用这个
+//所以重载了函数来区分内外接口
 
 bookNode *BookWare::SearchByISBN(string dst)
 {
@@ -145,11 +148,21 @@ void BookWare::SearchByType(string vague, bookNode *father)
 {
     if (father == NULL)
         return;
-    else if (father->data.type == vague)
-        printList.push_back(father->data);
+    else
+    {
+        int len = vague.size();
+        bool judge = true;
+        for (int i = 0; i < len; i++)
+            if (vague[i] != father->data.type[i])
+                judge = false;
+        if (judge)
+            printList.push_back(father->data);
+    }
     SearchByType(vague, father->left);
     SearchByType(vague, father->right);
 }
+//基本实现和按作者搜索类似
+//区别是使用了模糊搜索
 
 void BookWare::insert(Book *book)
 {
@@ -161,6 +174,8 @@ void BookWare::insert(Book *book)
     else
         return;
 }
+//典型的二叉搜索树搜索算法
+//不过还需要添加map中的键值对
 
 void BookWare::read_data()
 {
@@ -184,6 +199,7 @@ void BookWare::save_data()
     fout.close();
     save_data(root);
 }
+//前两个函数语句的作用是清空文件中原本的数据
 
 void BookWare::save_data(bookNode *father)
 {
@@ -199,6 +215,7 @@ void BookWare::save_data(bookNode *father)
         save_data(father->right);
     }
 }
+//前序遍历模拟存档
 
 void BookWare::deleteBook(string name)
 {
@@ -233,3 +250,4 @@ void BookWare::deleteBook(string name, bookNode *&father)
         }
     }
 }
+//标准的二叉搜索树删除算法

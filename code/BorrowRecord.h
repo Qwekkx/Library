@@ -15,3 +15,4 @@ bool Record_saveData();
 
 string Record_turnstring(int n);
 
+// 我感觉没有这个文件，程序照样能跑唉
