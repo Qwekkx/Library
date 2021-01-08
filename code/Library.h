@@ -2,6 +2,7 @@
 #include "Client.h"
 #include "ClientWare.h"
 #include "BookWare.h"
+#include "BorrowRecord.h"
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -197,7 +198,9 @@ OPERATION:
         borrow_book();
         goto OPERATION;
     case 3:
-        client->check_record();
+        system("cls");
+        cout << Record_userRecord(client->user_name) << endl;
+        system("pause");
         goto OPERATION;
     case 4:
         client->set();
@@ -373,8 +376,7 @@ void Library::borrow_book()
     cout << "Please input the duration:\n";
     long long duration;
     cin >> duration;
-    Record new_record{name, date, &borrowed->data, duration};
-    client->recordUpdate(new_record);
+    Record_changeUserRecord(client->user_name, name, date, duration, 1);
     cout << "DONE\n";
     system("pause");
 }
@@ -407,6 +409,7 @@ void Library::change_client_info()
         break;
     case 2:
         selected->password = str;
+        break;
     }
     cout << "DONE\n";
     system("pause");
@@ -482,4 +485,5 @@ void Library::save_data()
     ofstream fout("Admin.txt");
     fout << admin->user_name << ' ' << admin->password;
     fout.close();
+    Record_saveData();
 }
