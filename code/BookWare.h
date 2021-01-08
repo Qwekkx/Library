@@ -22,6 +22,8 @@ private:
 
 public:
     BookWare() : root(NULL) {}
+    ~BookWare() { deleteAll(root); }
+    void deleteAll(bookNode *&father);
     void insert(Book *book);
     void insert(Book *book, bookNode *&father);
     bookNode *SearchByName(string dst);
@@ -32,13 +34,21 @@ public:
     void SearchByAuthor(string vague, bookNode *father);
     void SearchByType(string vague);
     void SearchByType(string vague, bookNode *father);
-    void deleteBook(string book) {}
+    void deleteBook(string name);
+    void deleteBook(string name, bookNode *&father);
     void read_data();
     void save_data();
     void save_data(bookNode *father);
 };
 
 //典型的二叉搜索树插入语句
+
+void BookWare::deleteAll(bookNode *&father)
+{
+    deleteAll(father->left);
+    deleteAll(father->right);
+    delete father;
+}
 
 void BookWare::insert(Book *book, bookNode *&father)
 {
@@ -173,7 +183,7 @@ void BookWare::save_data()
     save_data(root);
 }
 
-void save_data(bookNode *father)
+void BookWare::save_data(bookNode *father)
 {
     if (father == NULL)
         return;
@@ -185,5 +195,39 @@ void save_data(bookNode *father)
              << father->data.num;
         save_data(father->left);
         save_data(father->right);
+    }
+}
+
+void BookWare::deleteBook(string name)
+{
+    deleteBook(name, root);
+}
+
+void BookWare::deleteBook(string name, bookNode *&father)
+{
+    bookNode *tmp;
+    if (father != NULL)
+    {
+        if (name < father->data.name)
+            deleteBook(name, father->left);
+        else if (name > father->data.name)
+            deleteBook(name, father->left);
+        else if (father->left != NULL && father->right != NULL)
+        {
+            tmp = father->right;
+            while (tmp->left != NULL)
+                tmp = tmp->left;
+            father->data = tmp->data;
+            deleteBook(father->data.name, father->right);
+        }
+        else
+        {
+            tmp = father;
+            if (father->left == NULL)
+                father = father->right;
+            else
+                father = father->right;
+            delete tmp;
+        }
     }
 }
